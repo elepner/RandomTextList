@@ -1,0 +1,170 @@
+﻿
+html {
+	cursor: default;
+	height: 100%; /* [2] */
+	box-sizing: border-box; /* [3] */
+}
+
+html,
+body {
+	min-height: 100%;
+}
+
+.scrollable-y,
+.has-touch .scroll,
+.has-touch .modal,
+.has-touch .steps-content {
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.scrollable-x {
+	overflow-x: auto;
+	overflow-y: hidden;
+	-webkit-overflow-scrolling: touch;
+}
+
+.scroll {
+	overflow: auto;
+}
+
+.pTn {
+	padding-top: 0 !important;
+}
+
+.fb0 {
+	-webkit-flex-basis: 0px;
+	-ms-flex-preferred-size: 0px;
+	flex-basis: 0px;
+}
+
+.fg1 {
+	-webkit-box-flex: 1;
+	-webkit-flex-grow: 1;
+	-ms-flex-positive: 1;
+	flex-grow: 1;
+}
+
+.fg2 {
+	-webkit-box-flex: 2;
+	-webkit-flex-grow: 2;
+	-ms-flex-positive: 2;
+	flex-grow: 2;
+}
+
+.fg3 {
+	-webkit-box-flex: 3;
+	-webkit-flex-grow: 3;
+	-ms-flex-positive: 3;
+	flex-grow: 3;
+}
+.pAs {
+	padding: 0.5rem !important;
+}
+
+.pAm {
+	padding: 1rem !important;
+}
+.posS {
+	position: static !important;
+}
+
+.posA {
+	position: absolute !important;
+}
+
+.posR {
+	position: relative !important;
+}
+.t0 {
+	top: 0 !important;
+}
+
+.r0 {
+	right: 0 !important;
+}
+
+.b0 {
+	bottom: 0 !important;
+}
+
+.l0 {
+	left: 0 !important;
+}
+.z1 {
+	z-index: 100 !important;
+}
+
+.z2 {
+	z-index: 200 !important;
+}
+
+.z3 {
+	z-index: 300 !important;
+}
+.bdrTs {
+	border-top: 1px solid !important;
+}
+.bdrAs {
+	border: 1px solid !important;
+}
+
+.is-disabled {
+	cursor: default !important;
+}
+
+.dF {
+	display: -webkit-box !important;
+	display: -webkit-flex !important;
+	display: -ms-flexbox !important;
+	display: flex !important;
+}
+
+.fdC {
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+}
+
+.bareList,
+.grid,
+.nav,
+.listBlock {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/**
+ * Core grid
+ *
+ * 1. Resets for ul, ol, dl
+ */
+
+.grid { /* [1] */
+	font-size: 0 !important;
+	text-align: left;
+}
+
+/**
+ * Grid cell
+ *
+ * 1. Keep content correctly aligned with the grid direction
+ * 2. Make childrens full-width by default (mobile-first)
+ */
+
+.grid-cell {
+	display: inline-block;
+	vertical-align: top;
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+	text-align: left; /* [1] */
+}
+
+.w100 {
+	width: 100% !important;
+}

@@ -6,12 +6,30 @@
     <body>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
         <script src="/Scripts/app.js"></script>
-        <div ng-app="randomReaderApp">
-            {{ 'World' | greet }}
+        <link rel="stylesheet" href="/Scripts/app.css" type="text/css">
+        <div ng-app="randomReaderApp" class="grid-cell w100 posA t0 b0 dF fdC">
+            <h1>Random List</h1>
             <div ng-controller="randomReaderController">
+                <div class="pAm pTn fg1 fb0 scrollable-y">
+                    <ul class="bareList">
+                        <li ng-repeat="record in records">
+                            <h3>{{record.header}}</h3>
+                            <p>{{record.text}}</p>
+                        </li>
+                    </ul>
+                    <h3 ng-if="records.length===0">List is empty.</h3>
+                </div>
 
+                <div class="pAm bdrTs bdr--gray25">
+                    <button ng-click="removeAll()" type="button" class="w100 btn btn--small fill-navy15" ng-class="{'is-disabled': isDefaultSettings()}" ng-click="resetToDefault()">
+                        <span>Remove All</span>
+                    </button>
+                </div>
             </div>
+
+
         </div>
+
     </body>
 
 </html>
