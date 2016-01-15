@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Castle.MicroKernel.Registration;
@@ -7,6 +8,7 @@ using Microsoft.Owin;
 using Owin;
 using RandomTextList.Code;
 using RandomTextList.Controllers;
+using RandomTextList.DAL;
 
 [assembly: OwinStartup(typeof(RandomTextList.Startup))]
 
@@ -27,6 +29,12 @@ namespace RandomTextList
             httpConfig.MapHttpAttributeRoutes();
             httpConfig.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
                 new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+
+            _container.Register(
+                Component
+                    .For<DbContext>()
+                    .ImplementedBy<RandomRecordsContext>()
+                    .LifestylePerWebRequest());
 
             app.UseWebApi(httpConfig);
         }
