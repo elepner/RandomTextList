@@ -51,7 +51,7 @@ namespace RandomTextList.Controllers
         }
 
         [Route("status")]
-        [HttpGet]
+        [HttpPost]
         public IHttpActionResult GetWriterStatus()
         {
             return Ok(_databaseWriter.WriterStatus);

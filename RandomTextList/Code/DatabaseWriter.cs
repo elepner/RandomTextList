@@ -36,7 +36,7 @@ namespace RandomTextList.Code
             set
             {
                 if(_timer!=null) return;
-                RecordsCount = value;
+                _recordsCount = value;
             }
         }
 
@@ -49,7 +49,8 @@ namespace RandomTextList.Code
                 {
                     RecordsCount = _recordsCount,
                     Throttling = running ? _throttling : 0,
-                    Running = running
+                    Running = running,
+                    RecordsPerSecond = RecordsPerSecond
                 };
             }
         }

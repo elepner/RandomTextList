@@ -6,37 +6,42 @@
     <body>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
         <script src="/Scripts/app.js"></script>
-        <link rel="stylesheet" href="/Scripts/app.css" type="text/css">
+        <link rel="stylesheet" href="/Content/app.css" type="text/css">
+        <link rel="stylesheet" href="/Content/spin.css" type="text/css">
         <div ng-app="randomReaderApp">
             <div ng-controller="randomReaderController" class="h100 dF fdC posA t0 lC records-content">
                 <header class="bdrBs">
-                    <h1 class="">Random List</h1>
+                    <div class="dIB">
+                        <h1>Random List</h1>
+                    </div>
                 </header>
                 
-                <div class="pAm pTn fg1 fb0 scrollable-y">
+                <div class="pAm pTn fg1 fb0 scrollable-y" scrolled="loadMore()">
                     
                     <h3 ng-show="records.length===0">List is empty.</h3>
                     
                     <ul class="bareList bdrAs bdr--gray25 mAs" ng-repeat="record in records">
                         <li>
-                            <h3 class="pLs mBs mTs">{{record.header}}</h3>
+                            <h3 class="pLs mBs mTs">{{::record.header}}</h3>
                             <div class="ellipsis">
                                 <div>
-                                    <p>{{record.text}}</p>
+                                    <p>{{::record.text}}</p>
                                 </div>
                             </div>
-                            
                         </li>
                     </ul>
+                    
+                    <div ng-show="loading" class="uil-spin-css" style="transform:scale(0.28)"><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>
+
                 </div>
                 <div class="pAm bdrTs">
-                    <button class="pLs btn" ng-click="removeAll()">Remove All</button>
+                    <button class="pLs btn" ng-class="{'is-disabled' : !status}" ng-click="removeAll()">Remove All</button>
                     <button class="pLs btn" ng-click="status.running ? stop() : start()" ng-class="{'is-disabled' : !status}">
                         <span ng-hide="status && status.running">Start</span>
                         <span ng-show="status.running">Stop</span>
                     </button>
                     
-                    <span ng-show="status">{{status|json}}</span>
+                    <span ng-show="status">Status: {{status.running ? 'running': 'stopped'}}, Throttling: {{status.throttling}}, RPS: {{status.recordsPerSecond}}, Count: {{status.recordsCount}}</span>
                 </div>
 
             </div>

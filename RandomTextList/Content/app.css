@@ -251,6 +251,11 @@ aside, header {
     word-wrap: normal;
 }
 
+.dIB {
+	display: inline-block !important;
+	max-width: 100%; /* 1 */
+}
+
 @media screen and ( max-width: 48.75em ) {
     .records-content {
         width: 100%;
