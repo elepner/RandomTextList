@@ -11,10 +11,12 @@
             <div ng-controller="randomReaderController" class="h100 dF fdC posA t0 lC records-content">
                 <header class="bdrBs">
                     <h1 class="">Random List</h1>
-                    <h3 ng-if="">List is empty.</h3>
                 </header>
                 
                 <div class="pAm pTn fg1 fb0 scrollable-y">
+                    
+                    <h3 ng-show="records.length===0">List is empty.</h3>
+                    
                     <ul class="bareList bdrAs bdr--gray25 mAs" ng-repeat="record in records">
                         <li>
                             <h3 class="pLs mBs mTs">{{record.header}}</h3>
@@ -28,8 +30,15 @@
                     </ul>
                 </div>
                 <div class="pAm bdrTs">
-                    <button ng-click="removeAll()">Remove All</button>
+                    <button class="pLs btn" ng-click="removeAll()">Remove All</button>
+                    <button class="pLs btn" ng-click="status.running ? stop() : start()" ng-class="{'is-disabled' : !status}">
+                        <span ng-hide="status && status.running">Start</span>
+                        <span ng-show="status.running">Stop</span>
+                    </button>
+                    
+                    <span ng-show="status">{{status|json}}</span>
                 </div>
+
             </div>
         </div>
     </body>

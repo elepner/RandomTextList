@@ -108,8 +108,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\DatabaseWriter.cs" />
     <Compile Include="Code\WinsdorContainer.cs" />
-    <Compile Include="Controllers\RandomRecordsController.cs" />
+    <Compile Include="Controllers\RecordsController.cs" />
     <Compile Include="DAL\RandomRecordsContext.cs" />
     <Compile Include="DAL\RandomRecordsInitializer.cs" />
     <Compile Include="Models\Record.cs" />

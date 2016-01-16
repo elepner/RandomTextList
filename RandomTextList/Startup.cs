@@ -9,6 +9,7 @@ using Owin;
 using RandomTextList.Code;
 using RandomTextList.Controllers;
 using RandomTextList.DAL;
+using RandomTextList.Models;
 
 [assembly: OwinStartup(typeof(RandomTextList.Startup))]
 
@@ -30,20 +31,39 @@ namespace RandomTextList
             httpConfig.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
                 new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
 
-            _container.Register(
-                Component
-                    .For<DbContext>()
-                    .ImplementedBy<RandomRecordsContext>()
-                    .LifestylePerWebRequest());
+
+            
+
+            
 
             app.UseWebApi(httpConfig);
         }
 
         private void RegisterDependencies()
         {
+
+            _container.Register(Component.For<IDBContextFactory>()
+                .ImplementedBy<RandomRecordsContextFactory>().LifestyleSingleton());
+
+            _container.Register(Component
+                .For<DatabaseWriter<Record>>()
+                .ImplementedBy<DatabaseWriter<Record>>()
+                .LifestyleSingleton());
+
             _container.Register(
                 Component
-                    .For<RandomRecordsController>()
+                    .For<DbContext>()
+                    .ImplementedBy<RandomRecordsContext>()
+                    .LifestylePerWebRequest());
+            _container.Register(
+                Component
+                .For<IDatagenerator<Record>>()
+                .ImplementedBy<RandomRecordsGenerator>()
+                .LifestyleSingleton());
+
+            _container.Register(
+                Component
+                    .For<RecordsController>()
                     .LifestylePerWebRequest());
         }
     }

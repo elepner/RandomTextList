@@ -285,6 +285,45 @@ aside, header {
 	margin-top: 0.5rem !important;
 }
 
+.btn {
+	display: inline-block;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 21px;
+	margin: 0 2px 2px 0;
+	position: relative;
+	text-align: left;
+	text-decoration: none;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	border: 1px solid;
+	border-radius: 3px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none; /* [1] */
+	-webkit-font-smoothing: subpixel-antialiased;
+}
+
+.btn.is-disabled,
+.btn:disabled {
+	border-color: #dfdfdc !important;
+	background-color: #ebebe8 !important;
+	color: #7b7a68 !important;
+	opacity: 1;
+	cursor: default;
+	pointer-events: none;
+}
+
+.btn.is-disabled:active,
+.btn.is-disabled:focus,
+.btn:disabled:active,
+.btn:disabled:focus {
+	top: 0;
+	outline: 0;
+}
+
 /*Greate idea from  https://www.mobify.com/blog/multiline-ellipsis-in-pure-css/*/
 /*.ellipsis {
     overflow: hidden;

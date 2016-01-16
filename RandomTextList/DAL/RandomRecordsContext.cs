@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
+using RandomTextList.Code;
 using RandomTextList.Models;
 
 namespace RandomTextList.DAL
@@ -20,6 +21,14 @@ namespace RandomTextList.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
+    }
+
+    public class RandomRecordsContextFactory : IDBContextFactory
+    {
+        public DbContext Create()
+        {
+            return new RandomRecordsContext();
         }
     }
 }
