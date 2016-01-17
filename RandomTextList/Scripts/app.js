@@ -122,12 +122,12 @@ randomReaderModule.directive('scrolled', function() {
     return {
         restrict: 'A',
         link: function($scope, element, attrs) {
-            var raw = element[0];
+            var el = element[0];
 
             element.bind('scroll', function () {
-                console.log(raw.scrollTop, raw.scrollHeight - raw.offsetHeight);
+                console.log(el.scrollTop, el.scrollHeight - el.offsetHeight);
 
-                if (raw.scrollTop >= (raw.scrollHeight - raw.offsetHeight) - 1) {
+                if (el.scrollTop >= (el.scrollHeight - el.offsetHeight) - 1) {
                     $scope.$apply(attrs.scrolled);
                 }
             });

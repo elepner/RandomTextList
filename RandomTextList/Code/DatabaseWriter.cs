@@ -1,12 +1,14 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using RandomTextList.Models;
 
 namespace RandomTextList.Code
 {
+    /// <summary>
+    /// Class which writes chunks of data provided by <see cref="IDatagenerator{T}"/>to the database. 
+    /// </summary>
+    /// <typeparam name="T">The type of objects to be filled to the database.</typeparam>
     public class DatabaseWriter<T> where T : class
     {
         private const int PERIOD = 1000;
@@ -14,6 +16,11 @@ namespace RandomTextList.Code
         private readonly IDBContextFactory _dbContextFactory;
         private Timer _timer;
 
+        /// <summary>
+        /// Constructor which creates new DatabaseWriter instance.
+        /// </summary>
+        /// <param name="datagenerator">Instance of generator.</param>
+        /// <param name="dbContextFactory">The factory object which creates <see cref="DbContext"/></param>
         public DatabaseWriter(IDatagenerator<T> datagenerator, IDBContextFactory dbContextFactory)
         {
             _datagenerator = datagenerator;
@@ -25,11 +32,16 @@ namespace RandomTextList.Code
             }
         }
 
+        /// <summary>
+        /// Target number of records for writing to the database.
+        /// </summary>
         public int RecordsPerSecond { get; set; }
         private int _recordsCount;
         private float _throttling;
 
-
+        /// <summary>
+        /// Number of records in the database. Set value will not take affect if DatabaseWriter is running.
+        /// </summary>
         public int RecordsCount
         {
             get { return _recordsCount; }
@@ -40,6 +52,9 @@ namespace RandomTextList.Code
             }
         }
 
+        /// <summary>
+        /// Returns status object for the DatabaseWriter instance.
+        /// </summary>
         public WriterStatus WriterStatus
         {
             get
@@ -55,7 +70,9 @@ namespace RandomTextList.Code
             }
         }
         
-
+        /// <summary>
+        /// Starts writing data to the database.
+        /// </summary>
         public void StartDataGeneration()
         {
             if (_timer != null) return;
@@ -85,6 +102,9 @@ namespace RandomTextList.Code
             }, null, 0, PERIOD);
         }
 
+        /// <summary>
+        /// Stops writing data to the database.
+        /// </summary>
         public void StopDataGeneration()
         {
             if(_timer == null) return;
@@ -94,49 +114,45 @@ namespace RandomTextList.Code
         }
     }
 
+    /// <summary>
+    /// Factory interface for creating DbContext.
+    /// </summary>
     public interface IDBContextFactory
     {
         DbContext Create();
     }
 
     /// <summary>
-    /// The interface which <see cref="DatabaseWriter"/> uses when generates necessary data.
+    /// The interface which <see cref="DatabaseWriter{T}"/> uses when generates necessary data.
     /// </summary>
     public interface IDatagenerator<T>
     {
         T[] GetRecords(int count);
     }
 
+    /// <summary>
+    /// Composite object describing the status of data writer.
+    /// </summary>
     public class WriterStatus
     {
+        /// <summary>
+        /// Indicates whether the DatabaseWriter is running.
+        /// </summary>
         public bool Running { get; set; }
+
+        /// <summary>
+        /// Indicates the loading of database. Indicates the time taken by a tick of dabase data filling.
+        /// </summary>
         public float Throttling { get; set; }
+
+        /// <summary>
+        /// Number of records in the database.
+        /// </summary>
         public int RecordsCount { get; set; }
+
+        /// <summary>
+        /// Desried records writing speed.
+        /// </summary>
         public int RecordsPerSecond { get; set; }
-    }
-
-    public class RandomRecordsGenerator : IDatagenerator<Record>
-    {
-        private static readonly Random Random = new Random();
-
-        public static string RandomString(int length)
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789    ";
-
-            return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[Random.Next(s.Length)]).ToArray());
-        }
-
-        public Record[] GetRecords(int count)
-        {
-
-            return Enumerable.Range(0, count)
-                .Select(idx => new Record
-                {
-                    Header = RandomString(Random.Next(4, 8)),
-                    Text = RandomString(Random.Next(50, 1000))
-                }).ToArray();
-
-        }
     }
 }

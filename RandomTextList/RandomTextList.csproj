@@ -116,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\DatabaseWriter.cs" />
+    <Compile Include="Code\RandomRecordsGenerator.cs" />
     <Compile Include="Code\WinsdorContainer.cs" />
     <Compile Include="Controllers\RecordsController.cs" />
     <Compile Include="DAL\RandomRecordsContext.cs" />
