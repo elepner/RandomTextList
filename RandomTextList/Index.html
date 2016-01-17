@@ -16,31 +16,45 @@
                     </div>
                 </header>
                 
-                <div class="pAm pTn fg1 fb0 scrollable-y" scrolled="loadMore()">
+                <div class="pAm pTn fg1 fb0 scrollable-y" scrolled="loadMore(50)">
                     
                     <h3 ng-show="records.length===0">List is empty.</h3>
                     
                     <ul class="bareList bdrAs bdr--gray25 mAs" ng-repeat="record in records">
                         <li>
-                            <h3 class="pLs mBs mTs">{{::record.header}}</h3>
-                            <div class="ellipsis">
-                                <div>
-                                    <p>{{::record.text}}</p>
+                            
+                            <div class="dT classname">
+                                <div class="dTC pAm vaM">
+                                    <img ng-src="/Content/{{::getImageId(record, $index)}}.png" />
+                                </div>
+                                <div class="dTC w100">
+                                    <div class="mTs">
+                                        <h3 class="mAn">{{::$index+1+offset + ") "+record.header}}</h3>
+                                        <div class="ellipsis ellipsis-{{::getLinesNumber($index)}}-lines">
+                                            <div>
+                                                <p>{{::record.text}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            
                         </li>
                     </ul>
                     
+                    <h3 ng-show="records.length + offset >= status.recordsCount">Congratulations! You've reached the bottom! Click run, maybe service may give you more raws.</h3>
+                    
+                    <h3 ng-show="records.length >= MAX_ROW_NUMBER">Number of rows exeeded. Increase offset value to get more rows.</h3>
                     <div ng-show="loading" class="uil-spin-css" style="transform:scale(0.28)"><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>
 
                 </div>
                 <div class="pAm bdrTs">
-                    <button class="pLs btn" ng-class="{'is-disabled' : !status}" ng-click="removeAll()">Remove All</button>
+                    <button class="pLs btn" ng-class="{'is-disabled' : !status || removing}" ng-click="removeAll()">Remove All</button>
                     <button class="pLs btn" ng-click="status.running ? stop() : start()" ng-class="{'is-disabled' : !status}">
                         <span ng-hide="status && status.running">Start</span>
                         <span ng-show="status.running">Stop</span>
                     </button>
-                    
+                    <span>Offset: </span> <input ng-model="offset" min="0" max="10000000" type="number" size="6" ng-model-options="{ debounce: 1000 }" ng-disabled="offsetUpdating" ng-pattern="/^\d+$/" />
                     <span ng-show="status">Status: {{status.running ? 'running': 'stopped'}}, Throttling: {{status.throttling}}, RPS: {{status.recordsPerSecond}}, Count: {{status.recordsCount}}</span>
                 </div>
 

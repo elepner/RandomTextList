@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using System.Web.Configuration;
 using System.Web.Http;
+using System.Web.Http.Filters;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Microsoft.Owin;
@@ -30,11 +32,6 @@ namespace RandomTextList
             httpConfig.MapHttpAttributeRoutes();
             httpConfig.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
                 new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
-
-
-            
-
-            
 
             app.UseWebApi(httpConfig);
         }

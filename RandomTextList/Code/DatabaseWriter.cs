@@ -73,8 +73,8 @@ namespace RandomTextList.Code
                     {
                         var set = dbContext.Set<T>();
                         set.AddRange(_datagenerator.GetRecords(RecordsPerSecond));
-                        _recordsCount = set.Count();
                         dbContext.SaveChanges();
+                        _recordsCount = set.Count();
                     }    
                     sw.Stop();
                     _throttling = (float)sw.ElapsedMilliseconds / PERIOD;

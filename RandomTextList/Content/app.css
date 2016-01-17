@@ -290,6 +290,9 @@ aside, header {
 	margin-top: 0.5rem !important;
 }
 
+.mAn {
+	margin: 0 !important;
+}
 .btn {
 	display: inline-block;
 	height: 50px;
@@ -329,19 +332,44 @@ aside, header {
 	outline: 0;
 }
 
+
+input.ng-invalid { 
+    border: 2px red solid;
+}
+
+.dT {
+	display: table !important;
+}
+.dTC {
+	display: table-cell !important;
+}
+
+.vaM {
+	vertical-align: middle !important;
+}
+
+.dB,
+.block {
+	display: block !important;
+}
+
+
 /*Greate idea from  https://www.mobify.com/blog/multiline-ellipsis-in-pure-css/*/
-/*.ellipsis {
-    overflow: hidden;
-    height: 200px;
-    line-height: 25px;
-    
-}*/
 
 .ellipsis {
     overflow: hidden;
-    height: 3.6em;
     line-height: 1.2em;
-    
+}
+
+.ellipsis-3-lines {
+    height: 4.8em;
+}
+.ellipsis-5-lines {
+    height: 7.2em;
+}
+
+.ellipsis-4-lines {
+    height: 6em;
 }
     .ellipsis:before {
         content: "";

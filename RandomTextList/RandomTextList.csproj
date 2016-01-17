@@ -103,6 +103,11 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\1.png" />
+    <Content Include="Content\2.png" />
+    <Content Include="Content\3.png" />
+    <Content Include="Content\4.png" />
+    <Content Include="Content\5.png" />
     <Content Include="Content\spin.css" />
     <Content Include="Content\spin.svg" />
     <Content Include="Index.html" />

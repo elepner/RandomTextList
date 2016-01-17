@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Castle.Core.Internal;
@@ -23,14 +25,14 @@ namespace RandomTextList.Controllers
         }
 
         [Route("get_records")]
-        public async Task<IHttpActionResult> GetRecords(int start, int count)
+        public IHttpActionResult GetRecords(int start, int count)
         {
             if (start < 0 || count <= 0)
             {
                 Ok("error");
             }
             
-            return Ok(_dbContext.Set<Record>().OrderBy(x => x.Id).Skip(0).Take(count).ToArray());
+            return Ok(_dbContext.Set<Record>().OrderBy(x => x.Id).Skip(start).Take(count).ToArray());
         }
 
         [Route("cleanup")]
@@ -51,7 +53,7 @@ namespace RandomTextList.Controllers
         }
 
         [Route("status")]
-        [HttpPost]
+        [HttpGet]
         public IHttpActionResult GetWriterStatus()
         {
             return Ok(_databaseWriter.WriterStatus);
