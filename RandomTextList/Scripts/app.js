@@ -6,6 +6,8 @@ randomReaderModule.controller('randomReaderController', [
         $scope.loading = false;
         $scope.MAX_ROW_NUMBER = 1000;
 
+        
+
         $scope.removeAll = function () {
             $scope.removing = true;
             $http.get('api/cleanup').then(function () {
@@ -26,17 +28,13 @@ randomReaderModule.controller('randomReaderController', [
         $scope.start = function() {
             $http.get('api/start_writing').then(function (data) {
                 $scope.status = data.data;
-            }, function(err) {
-
-            });
+            }, handleError);
         }
 
         $scope.stop = function() {
             $http.get('api/stop_writing').then(function (data) {
                 $scope.status = data.data;
-            }, function(err) {
-
-            });
+            }, handleError);
         }
 
         $scope.getLinesNumber = function (index) {
@@ -87,10 +85,7 @@ randomReaderModule.controller('randomReaderController', [
             }).then(function (result) {
                 $scope.records = $scope.records.concat(result.data);
                 $scope.loading = false;
-            }, function (err) {
-                console.log(err);
-                $scope.loading = false;
-            });
+            }, handleError);
         }
 
         $scope.loadMore(100);
@@ -102,6 +97,13 @@ randomReaderModule.controller('randomReaderController', [
             }
         });
 
+        function handleError(response) {
+            var err = response.data || {};
+            var errType = err.exceptionType || "Unknown";
+            var errMsg = err.exceptionMessage || "Unknown";
+
+            alert("Server exception of type " + errType+ " has occured. Message: " + errMsg);
+        }
         function pollStatus() {
             $http.get('api/status').then(function (result) {
                 //All records are deleted, but service is running => one can try to query more data.
@@ -111,7 +113,7 @@ randomReaderModule.controller('randomReaderController', [
                 }
                 
                 $timeout(pollStatus, 1500);
-            });
+            }, handleError);
         };
 
         pollStatus();

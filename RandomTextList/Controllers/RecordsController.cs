@@ -29,7 +29,7 @@ namespace RandomTextList.Controllers
         {
             if (start < 0 || count <= 0)
             {
-                Ok("error");
+                throw new ArgumentException("start and count parameters must be positive integer values.");
             }
             
             return Ok(_dbContext.Set<Record>().OrderBy(x => x.Id).Skip(start).Take(count).ToArray());
